@@ -1,0 +1,12 @@
+ef issue_book(request):
+    form = forms.IssueBookForm()
+    if request.method == "POST":
+        form = forms.IssueBookForm(request.POST)
+        if form.is_valid():
+            obj = models.IssuedBook()
+            obj.student_id = request.POST['name2']
+            obj.isbn = request.POST['isbn2']
+            obj.save()
+            alert = True
+            return render(request, "issue_book.html", {'obj':obj, 'alert':alert})
+    return render(request, "issue_book.html", {'form':form})
